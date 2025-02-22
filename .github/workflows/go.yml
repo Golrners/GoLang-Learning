@@ -11,7 +11,7 @@ jobs:
     runs-on: ubuntu-latest
     strategy:
       matrix:
-        project: ['goproj1', 'goproj2']
+        project: ['AnthropicIntegration']
     
     steps:
     - uses: actions/checkout@v4
