@@ -15,6 +15,18 @@ func NewProjectViewModel(repository Services.ProjectServiceRepository) ProjectVi
 	}
 }
 
+func (pm *ProjectViewModel) FetchRepositoryLinks() ([]string, error) {
+	projects, err := pm.repository.FetchProjects()
+	if err != nil {
+		return nil, err
+	}
+	projectLinks := make([]string, len(projects))
+	for _, project := range projects {
+		projectLinks = append(projectLinks, project.Github)
+	}
+	return projectLinks, nil
+}
+
 func (pm *ProjectViewModel) FetchImageLinksFromDifferentDomain() ([]string, error) {
 	projects, err := pm.repository.FetchProjects()
 	if err != nil {

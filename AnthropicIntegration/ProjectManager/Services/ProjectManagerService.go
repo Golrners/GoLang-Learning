@@ -16,7 +16,7 @@ type ProjectServiceRepository interface {
 	FetchProjects() ([]Models.Project, error)
 }
 
-type ProjectManager struct {
+type ProjectManagerService struct {
 	baseUrl         string
 	fetchEndPoint   string
 	storeEndPoint   string
@@ -28,8 +28,8 @@ type ProjectManager struct {
 func NewProjectManager(baseUrl string,
 	fetchEndPoint string,
 	storeEndPoint string,
-	networkManager NetworkManager.BaseNetworkManager) *ProjectManager {
-	return &ProjectManager{
+	networkManager NetworkManager.BaseNetworkManager) *ProjectManagerService {
+	return &ProjectManagerService{
 		baseUrl:        baseUrl,
 		fetchEndPoint:  fetchEndPoint,
 		storeEndPoint:  storeEndPoint,
@@ -39,7 +39,7 @@ func NewProjectManager(baseUrl string,
 
 // AddNewProject A method required to update a new project.
 // TODO: Verify the working of the method.
-func (pm *ProjectManager) AddNewProject(url string, project Models.Project) {
+func (pm *ProjectManagerService) AddNewProject(url string, project Models.Project) {
 	data, jsonErr := json.Marshal(project)
 	if jsonErr != nil {
 		log.Fatal(`Could not add new project to JSON format`)
@@ -64,7 +64,7 @@ func (pm *ProjectManager) AddNewProject(url string, project Models.Project) {
 }
 
 // FetchProjectFromID a method to fetch the project from the identifier.
-func (pm *ProjectManager) FetchProjectFromID(url string) (*Models.Project, error) {
+func (pm *ProjectManagerService) FetchProjectFromID(url string) (*Models.Project, error) {
 	body, err := pm.networkManager.FetchResponseBody(url)
 	if err != nil {
 		return nil, err
@@ -77,7 +77,7 @@ func (pm *ProjectManager) FetchProjectFromID(url string) (*Models.Project, error
 	return &project, nil
 }
 
-func (pm *ProjectManager) FetchProjects() ([]Models.Project, error) {
+func (pm *ProjectManagerService) FetchProjects() ([]Models.Project, error) {
 	url := pm.baseUrl + pm.fetchEndPoint
 	body, err := pm.networkManager.FetchResponseBody(url)
 	if err != nil {

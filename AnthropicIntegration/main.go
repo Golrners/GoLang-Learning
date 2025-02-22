@@ -5,10 +5,11 @@ import (
 	"AnthropicIntegration/ProjectManager/Services/NetworkManager"
 	"AnthropicIntegration/ProjectManager/ViewModel"
 	"fmt"
+	_ "strings"
 )
 
-// Download a json object from the API.
-func main() {
+func FetchProjectsAndLog() {
+	fmt.Println("Fetching Projects With Unknown Images...")
 	projectsViewModel := ViewModel.NewProjectViewModel(
 		Services.NewProjectManager(
 			"https://api.sareenv.com/api",
@@ -25,4 +26,9 @@ func main() {
 			fmt.Println(unknownDomain)
 		}
 	}
+}
+
+// Download a json object from the API.
+func main() {
+	FetchProjectsAndLog()
 }
